@@ -1,0 +1,28 @@
+<?php
+
+/** load field hooks **/
+module_load_include('inc', 'bibdk_sbkopi', 'bibdk_sbkopi.field');
+
+
+/** Implements hook_menu **/
+function bibdk_sbkopi_menu () {
+  $items['sbkopi/ajax'] = array(
+    'page callback' => 'bibdk_sbkopi_ajax_get_options',
+    #'page arguments' => array('id' => 2),
+    
+    //'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+    'file' => 'bibdk_sbkopi.ajax.inc',
+  );
+  return $items;
+}
+
+
+
+
+
+
+
+
+

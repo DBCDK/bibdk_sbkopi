@@ -1,0 +1,6 @@
+name = Bibdk sbkopi field
+description = Module for linking articles for ordering.
+package = Bibliotek.dk
+core = 7.x
+
+dependencies[] = virtual_field
