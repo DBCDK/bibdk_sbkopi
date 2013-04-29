@@ -3,15 +3,20 @@
  * script attached in bibdk_sbkopi.field.inc::bibdk_sbkopi_field_formatter_view
  **/
 (function ($) {
-    Drupal.addCopyLink = function (result) {
-        alert(result.pid);
-       // $('.bibdk-sb_kopi-replaceme[pid=' + result.pid + ']').text(result.result);
+    Drupal.addCopyLink = function (data) {
+        if( data.link != 'error') {
+            $('.bibdk-sb_kopi-replaceme[pid=' + data.pid + ']').replaceWith(data.link);
+            // reload behaviours (context) for this ajax-call
+            Drupal.attachBehaviors(Drupal.settings.sbkopi);
+        }
     },
     
-    Drupal.bibdkKopiOptions =  function(element) {
+    Drupal.bibdkKopiOptions =  function(element,context) {
         var pid = $(element).attr('pid');
+        // save context in global var to reload later
+        Drupal.settings.sbkopi = context;
         // Call ajax 
-        var request = $.ajax({
+        $.ajax({
             url:Drupal.settings.basePath + 'sbkopi/ajax',
             type:'POST',
             data:{
@@ -20,15 +25,17 @@
             dataType:'json',
             success:Drupal.addCopyLink
         }); 
-    }
+    }   
+    
     
     /** Get copy options via ajax */
     Drupal.behaviors.sbKopi = {
         attach:function (context) {
             $('.bibdk-sb_kopi-replaceme', context).each(function (i, element) {
-                Drupal.bibdkKopiOptions(element);
+                Drupal.bibdkKopiOptions(element,context);
             });
         },
+        
         detach:function (context) {}
     };
 
