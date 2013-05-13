@@ -47,17 +47,17 @@ function _bibdk_sbkopi_make_link($method, $pid) {
   switch ($method) {
     case 'postal' :
       $label = t('order_printed_copy');
-      return _bibdk_sb_kopi_get_link($pid, $label);
+      return _bibdk_sb_kopi_get_link($pid, $label, 'PAY');
     case 'electronic' :
       $label = t('order_electronic_copy');
-      return _bibdk_sb_kopi_get_link($pid, $label);
+      return _bibdk_sb_kopi_get_link($pid, $label, 'FREE');
     default :
       return 'error';
   }
 }
 
-function _bibdk_sb_kopi_get_link($pid, $label) {
-  return '<a href="' . base_path() . 'reservation?ids=' . $pid . '" class="bibdk-popup-link" rel="reservation">' . $label . '</a>';
+function _bibdk_sb_kopi_get_link($pid, $label, $type) {
+  return '<a href="' . base_path() . 'reservation?ids=' . $pid . '&bestil_kopi='.$type.'" class="bibdk-popup-link" rel="reservation">' . $label . '</a>';
 }
 
 function _bibdk_sbkopi_set_xpath($xml) {

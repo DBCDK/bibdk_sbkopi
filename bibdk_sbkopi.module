@@ -3,16 +3,38 @@
 /** load field hooks **/
 module_load_include('inc', 'bibdk_sbkopi', 'bibdk_sbkopi.field');
 
+/**
+ * Implements hook_ting_client_webservice (@see ting_client.module)
+ * */
+function bibdk_sbkopi_ting_client_webservice () {
+  $ret = array();
+  $ret['statsbib']['class'] = 'bibdk_statsbib';
+  $ret['statsbib']['url'] = 'bibdk_statsbib_url';
+  return $ret;
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter (ting_client_admin_webservices_settings)
+ * add 2 fields to webservice client settings
+ * @url to borchk
+ * @servicerequester
+ * */
+function bibdk_sbkopi_form_ting_client_admin_webservices_settings_alter(&$form, &$form_state) {
+  $form['ting']['bibdk_statsbib_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('URL to statsbiblioteket'),
+    '#description' => t('URL to statsbibliotekets user api e.g. https://webservice.statsbiblioteket.dk/ws-create-user1/CreateUser'),
+    '#required' => TRUE,
+    '#default_value' => variable_get('bibdk_statsbib_url', FALSE),
+  );
+}
 
 /** Implements hook_menu **/
 function bibdk_sbkopi_menu () {
   $items['sbkopi/ajax'] = array(
     'page callback' => 'bibdk_sbkopi_ajax_get_options',
-    #'page arguments' => array('id' => 2),
-    
-    //'access arguments' => array('access content'),
+    'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
-    'access callback' => TRUE,
     'file' => 'bibdk_sbkopi.ajax.inc',
   );
   return $items;

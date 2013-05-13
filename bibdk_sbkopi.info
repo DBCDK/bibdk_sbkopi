@@ -6,6 +6,8 @@ package = Bibliotek.dk
 
 files[] = bibdk_sbkopi.field.inc
 files[] = bibdk_sbkopi.ajax.inc
+files[] = bibdk_sbkopi.test
+files[] = bibdk_sbkopi.request.inc
 dependencies[] = bibdk_sbkopi_field
 
 ; we need a call to openorder so ..

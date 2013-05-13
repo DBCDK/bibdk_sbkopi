@@ -19,6 +19,13 @@ function bibdk_sbkopi_field_formatter_info() {
  */
 function bibdk_sbkopi_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
   $element = array();
+  
+  // sb copy service is for type 'Tidsskriftsartikel' only
+  $type = $entity->getSubType();
+  if ($type != 'Tidsskriftsartikel') {
+    return;
+  }
+
   foreach ($items as $delta => $item) {
     $element[$delta]['#markup'] = '<div class="bibdk-sb_kopi-replaceme" pid="'.$entity->id.'"></div>';
   }
