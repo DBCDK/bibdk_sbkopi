@@ -1,12 +1,12 @@
 <?php
 
-/** load field hooks **/
-module_load_include('inc', 'bibdk_sbkopi', 'bibdk_sbkopi.field');
+/** load field hooks * */
+//module_load_include('inc', 'bibdk_sbkopi', 'bibdk_sbkopi.field');
 
 /**
  * Implements hook_ting_client_webservice (@see ting_client.module)
  * */
-function bibdk_sbkopi_ting_client_webservice () {
+function bibdk_sbkopi_ting_client_webservice() {
   $ret = array();
   $ret['statsbib']['class'] = 'bibdk_statsbib';
   $ret['statsbib']['url'] = 'bibdk_statsbib_url';
@@ -29,8 +29,8 @@ function bibdk_sbkopi_form_ting_client_admin_webservices_settings_alter(&$form, 
   );
 }
 
-/** Implements hook_menu **/
-function bibdk_sbkopi_menu () {
+/** Implements hook_menu * */
+function bibdk_sbkopi_menu() {
   $items['sbkopi/ajax'] = array(
     'page callback' => 'bibdk_sbkopi_ajax_get_options',
     'access arguments' => array('access content'),
@@ -40,11 +40,18 @@ function bibdk_sbkopi_menu () {
   return $items;
 }
 
-
-
-
-
-
-
+/**
+ *  Implements hook_ting_openformat_actions
+ */
+function bibdk_sbkopi_ting_openformat_actions($type, $entity, $view_mode, $langcode) {
+  if ($type == 'bibdkManifestation') {
+    $actions['sbkpopi'] = array(
+      '#markup' => '<div class="bibdk-sb_kopi-replaceme" pid="' . $entity->id . '"></div>',
+      '#weight' => 1,
+      '#attached' => array('js' => array(drupal_get_path('module', 'bibdk_sbkopi') . '/js/ajaxGetCopyOptions.js')),
+    );
+    return $actions;
+  } 
+}
 
 
