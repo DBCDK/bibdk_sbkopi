@@ -45,13 +45,46 @@ function bibdk_sbkopi_menu() {
  */
 function bibdk_sbkopi_ting_openformat_actions($type, $entity, $view_mode, $langcode) {
   if ($type == 'bibdkManifestation') {
-    $actions['sbkpopi'] = array(
-      '#markup' => '<div class="bibdk-sb_kopi-replaceme" pid="' . $entity->id . '"></div>',
-      '#weight' => 1,
-      '#attached' => array('js' => array(drupal_get_path('module', 'bibdk_sbkopi') . '/js/ajaxGetCopyOptions.js')),
-    );
-    return $actions;
-  } 
+    if ($entity->getSubType() == 'Tidsskriftsartikel') {
+      $actions['sbkpopi'] = array(
+        '#markup' => '<div class="bibdk-sb_kopi-replaceme" pid="' . $entity->id . '"></div>',
+        '#weight' => 1,
+        '#attached' => array('js' => array(drupal_get_path('module', 'bibdk_sbkopi') . '/js/ajaxGetCopyOptions.js')),
+      );
+      return $actions;
+    }
+  }
 }
 
+/** Implements hook_bibdk_usersettings_user_tabs
+ * @return array
+ */
+function bibdk_sbkopi_bibdk_usersettings_user_tabs() {
+  $tab['sb_kopi'] = array(
+    'title' => t('sb_selvhenter', array(), array('context' => 'bibdk_reservation')),
+    'description' => t('sb_selvhenter_description', array(), array('context' => 'bibdk_reservation')),
+    'weight' => -1,
+  );
+
+  return $tab;
+}
+
+/** Implements hook_bibdk_usersettings_user_settings
+ * @return array
+ */
+function bibdk_sbkopi_bibdk_usersettings_user_settings() {
+  $form['sb_kopi']['bibdk_actions_' . $key] = array(
+    '#type' => 'checkbox',
+    '#title' => t('sb_selvhenter_description', array(), array('context' => 'bibdk_usersettings')),
+  );
+
+
+  $form['export'] += array(
+    '#type' => 'container',
+    '#weight' => 5,
+    '#tab' => 'export',
+  );
+
+  return $form;
+}
 
