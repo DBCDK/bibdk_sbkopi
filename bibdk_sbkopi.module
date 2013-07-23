@@ -45,6 +45,7 @@ function bibdk_sbkopi_menu() {
  */
 function bibdk_sbkopi_ting_openformat_actions($type, $entity, $view_mode, $langcode) {
   if ($type == 'bibdkManifestation') {
+    // only for type 'Tidsskriftsartikel
     if ($entity->getSubType() == 'Tidsskriftsartikel') {
       $actions['sbkpopi'] = array(
         '#markup' => '<div class="bibdk-sb_kopi-replaceme" pid="' . $entity->id . '"></div>',
@@ -73,18 +74,17 @@ function bibdk_sbkopi_bibdk_usersettings_user_tabs() {
  * @return array
  */
 function bibdk_sbkopi_bibdk_usersettings_user_settings() {
-  $form['sb_kopi']['bibdk_actions_' . $key] = array(
-    '#type' => 'checkbox',
-    '#title' => t('sb_selvhenter_description', array(), array('context' => 'bibdk_usersettings')),
-  );
-
-
-  $form['export'] += array(
+  $form['sb_kopi'] = array(
     '#type' => 'container',
     '#weight' => 5,
-    '#tab' => 'export',
+    '#tab' => 'sb_kopi',
   );
-
+  
+  $form['sb_kopi']['bibdk_actions_sb_selfpickup'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('sb_selvhenter_description', array(), array('context' => 'bibdk_usersettings')),
+    '#default_value' => bibdk_usersettings_user_settings_get('bibdk_actions_sb_selfpickup', TRUE),
+  );
   return $form;
 }
 
