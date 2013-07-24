@@ -18,8 +18,6 @@ function bibdk_sbkopi_ajax_parse_response($xml, $pid) {
   if ($xpath === FALSE) {
     return 'error';
   }
-
-  //var_dump($xml);
   // get articleDeliveryPossible
   $query = '//ns:articleDeliveryPossible';
   $nodelist = $xpath->query($query);
@@ -29,9 +27,6 @@ function bibdk_sbkopi_ajax_parse_response($xml, $pid) {
   $query = '//ns:articleDirect';
   $nodelist = $xpath->query($query);
   $deliver = $nodelist->item(0)->nodeValue;
-
-  // var_dump($deliver);
-  // var_dump($possible);
 
   if ($possible) {
     $result = _bibdk_sbkopi_make_link($deliver, $pid);
