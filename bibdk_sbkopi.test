@@ -34,8 +34,14 @@ class bibdkSbCopyWebTestCase extends DrupalWebTestCase {
     variable_set('bibdk_openorder_url' , 'http://openorder.addi.dk/2.4/');
     $this->drupalGet('reservation', array('query'=> array('ids'=>'870971-tsart:34276501','bestil_kopi'=> 'FREE')));
     
-    // test that description field is present
-    $this->assertText('sbkopi_electronic_copy_description', 'descriptionfield found on page');
+    // test that description field for electronic copy is present
+    $this->assertText('sbkopi_electronic_copy_description', 'descriptionfield for electronic copy found on page');
+    
+    $this->drupalGet('reservation', array('query'=> array('ids'=>'870971-tsart:34276501','bestil_kopi'=> 'PAY')));
+    // test that description field for electronic copy is present
+    $this->assertText('sbkopi_printed_copy_description', 'descriptionfield for printed copy found on page');
+    // test that selfpickup checkbox is present
+    $this->assertField('self_pickup', 'pickup checkbox found on page');
     // assert that bestil_kopi_e_mail is present (user is not logged in)
     $this->assertField('bestil_kopi_e_mail', 'email input field found');
     $this->assertTrue(TRUE,'TRUE is TRUE');
