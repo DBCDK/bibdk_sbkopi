@@ -1,5 +1,48 @@
 <?php
 
+class bibdkSbCopyWebTestCase extends DrupalWebTestCase {
+  function setUp() {
+   // NOTICE - testing on live webservices
+    parent::setUp(array('bibdk_sbkopi','bibdk_reservation', 'ting_openformat','bibdk_favourite'));
+    variable_set('ting_search_url', 'openbibdk.addi.dk/next/');
+    variable_set('bibdk_provider_webservice_url', $this->getAbsoluteUrl('bibdk_webservice'));
+    variable_set('bibdk_provider_security_code', 'securityCode');
+    variable_set('search_active_modules', array('ting_openformat' => 'ting_openformat'));
+    variable_set('search_default_module', 'ting_openformat');
+    
+    user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, array('access content', 'search content'));
+    menu_rebuild();
+  }
+
+  /**
+   * Info for this test case
+   */
+  public function getInfo() {
+    return array(
+      'name' => 'bibliotek.dk - webtest case',
+      'description' => t('Test that sb_kopi form is show correctly'),
+      'group' => 'Bibliotek.dk-sbkopi',
+    );
+  }
+ 
+  public function testHest(){
+    $this->assertTrue(TRUE,'TRUE is TRUE');
+  }
+  
+  public function testSbCopyElements(){
+    variable_set('agency_search_url','http://openagency.addi.dk/2.5/');
+    variable_set('bibdk_openorder_url' , 'http://openorder.addi.dk/2.4/');
+    $this->drupalGet('reservation', array('query'=> array('ids'=>'870971-tsart:34276501','bestil_kopi'=> 'FREE')));
+    
+    // test that description field is present
+    $this->assertText('sbkopi_electronic_copy_description', 'descriptionfield found on page');
+    // assert that bestil_kopi_e_mail is present (user is not logged in)
+    $this->assertField('bestil_kopi_e_mail', 'email input field found');
+    $this->assertTrue(TRUE,'TRUE is TRUE');
+  }
+}
+
+
 class BibdkSbCopyUnitTestCase extends DrupalUnitTestCase {
 
   public static function getInfo() {
@@ -24,19 +67,6 @@ class BibdkSbCopyUnitTestCase extends DrupalUnitTestCase {
     // validation method returns error array if errors are found; else NULL
     $result = bibdk_reservation_sbkopi_validate(array(), $form_state);
     $this->assertTrue(is_array($result), 'errors found for empty form_state');
-
-    // test old user
-    /*  $form_state = $this->getFormState();
-      $this->setOldUser($form_state);
-      $result = bibdk_reservation_sbkopi_validate(array(), $form_state);
-      debug($result);
-      $this->assertTrue(is_null($result), 'no errors found for already registred user'); */
-
-    // test new user
-    /*   $form_state = $this->getFormState();
-      $this->setNewUser($form_state);
-      $result = bibdk_reservation_sbkopi_validate(array(), $form_state);
-      $this->assertTrue(is_null($result), 'no errors found for new user'); */
 
     // test both forms filled out - validate unsets new userfields
     $form_state = $this->getFormState();
@@ -118,7 +148,6 @@ class BibdkSbCopyUnitTestCase extends DrupalUnitTestCase {
     }
     return $form_state;
   }
-
 }
 
 ?>
