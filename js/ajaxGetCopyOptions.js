@@ -5,9 +5,9 @@
 (function ($) {
     Drupal.addCopyLink = function (data) {
         if( data.link != 'error') {
-            $('.bibdk-sb_kopi-replaceme[pid=' + data.pid + ']').replaceWith(data.link);
-            // reload behaviours (context) for this ajax-call
-            Drupal.attachBehaviors(Drupal.settings.sbkopi);
+            var tag = $('.bibdk-sb_kopi-replaceme[pid=' + data.pid + ']');
+            tag.attr('href',data.link.href);
+            tag.html(data.link.text);            
         }
     },
     

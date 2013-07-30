@@ -52,7 +52,8 @@ function _bibdk_sbkopi_make_link($method, $pid) {
 }
 
 function _bibdk_sb_kopi_get_link($pid, $label, $type) {
-  return '<a href="' . base_path() . 'reservation?ids=' . $pid . '&bestil_kopi='.$type.'" class="bibdk-popup-link" rel="reservation">' . $label . '</a>';
+  $ref = base_path() . 'reservation?ids=' . $pid . '&bestil_kopi='.$type;
+  return array('href' => $ref, 'text' => $label);
 }
 
 function _bibdk_sbkopi_set_xpath($xml) {
