@@ -52,7 +52,7 @@ function _bibdk_sbkopi_make_link($method, $pid) {
 }
 
 function _bibdk_sb_kopi_get_link($pid, $label, $type) {
-  $ref = base_path() . 'reservation?ids=' . $pid . '&bestil_kopi='.$type;
+  $ref = url('reservation', array('query' => array('ids'=>$pid,'bestil_kopi'=>$type)));
   return array('href' => $ref, 'text' => $label);
 }
 

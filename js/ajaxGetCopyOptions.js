@@ -15,9 +15,10 @@
         var pid = $(element).attr('pid');
         // save context in global var to reload later
         Drupal.settings.sbkopi = context;
+        console.log(Drupal.settings);
         // Call ajax 
         $.ajax({
-            url:Drupal.settings.basePath + 'sbkopi/ajax',
+            url:Drupal.settings.basePath + Drupal.settings.pathPrefix + 'sbkopi/ajax',
             type:'POST',
             data:{
                 pid:pid
