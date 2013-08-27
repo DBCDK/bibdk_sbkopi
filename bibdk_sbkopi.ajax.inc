@@ -38,13 +38,13 @@ function bibdk_sbkopi_ajax_parse_response($xml, $pid) {
 }
 
 function _bibdk_sbkopi_make_link($method, $pid) {
-  // two methods postal (print), electronic (e-copy) 
+  // two methods postal (print), electronic (e-copy)
   switch ($method) {
     case 'postal' :
-      $label = t('order_printed_copy');
+      $label = t('<span class="icon icon-left icon-lightgrey-link">&nbsp;</span>order_printed_copy');
       return _bibdk_sb_kopi_get_link($pid, $label, 'PAY');
     case 'electronic' :
-      $label = t('order_electronic_copy');
+      $label = t('<span class="icon icon-left icon-lightgrey-link">&nbsp;</span>order_electronic_copy');
       return _bibdk_sb_kopi_get_link($pid, $label, 'FREE');
     default :
       return 'error';
@@ -52,7 +52,7 @@ function _bibdk_sbkopi_make_link($method, $pid) {
 }
 
 function _bibdk_sb_kopi_get_link($pid, $label, $type) {
-  $ref = base_path() . 'reservation?ids=' . $pid . '&bestil_kopi='.$type;
+  $ref = url('reservation', array('query' => array('ids'=>$pid,'bestil_kopi'=>$type)));
   return array('href' => $ref, 'text' => $label);
 }
 
