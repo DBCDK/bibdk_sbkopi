@@ -41,10 +41,10 @@ function _bibdk_sbkopi_make_link($method, $pid) {
   // two methods postal (print), electronic (e-copy)
   switch ($method) {
     case 'postal' :
-      $label = t('<span class="icon icon-left icon-lightgrey-link">&nbsp;</span>order_printed_copy');
+      $label = '<span class="icon icon-left icon-lightgrey-link">&nbsp</span>' . t('order_printed_copy', array(), array('context' => 'bibdk_sbkopi'));
       return _bibdk_sb_kopi_get_link($pid, $label, 'PAY');
     case 'electronic' :
-      $label = t('<span class="icon icon-left icon-lightgrey-link">&nbsp;</span>order_electronic_copy');
+      $label = '<span class="icon icon-left icon-lightgrey-link">&nbsp</span>' . t('order_electronic_copy', array(), array('context' => 'bibdk_sbkopi'));
       return _bibdk_sb_kopi_get_link($pid, $label, 'FREE');
     default :
       return 'error';
