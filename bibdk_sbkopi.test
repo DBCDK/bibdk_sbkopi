@@ -9,8 +9,8 @@ class bibdkSbCopyWebTestCase extends DrupalWebTestCase {
     variable_set('bibdk_provider_security_code', 'securityCode');
     variable_set('search_active_modules', array('ting_openformat' => 'ting_openformat'));
     variable_set('search_default_module', 'ting_openformat');
-    
-    user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, array('access content', 'search content')); 
+
+    user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, array('access content', 'search content'));
     menu_rebuild();
   }
 
@@ -24,19 +24,19 @@ class bibdkSbCopyWebTestCase extends DrupalWebTestCase {
       'group' => 'Bibliotek.dk-sbkopi',
     );
   }
- 
+
   public function testHest(){
     $this->assertTrue(TRUE,'TRUE is TRUE');
   }
-  
+
  /* public function testSbCopyElements(){
     variable_set('agency_search_url','http://openagency.addi.dk/2.5/');
     variable_set('bibdk_openorder_url' , 'http://openorder.addi.dk/2.4/');
     $this->drupalGet('reservation', array('query'=> array('ids'=>'870971-tsart:34276501','bestil_kopi'=> 'FREE')));
-    
+
     // test that description field for electronic copy is present
     $this->assertText('sbkopi_electronic_copy_description', 'descriptionfield for electronic copy found on page');
-    
+
     $this->drupalGet('reservation', array('query'=> array('ids'=>'870971-tsart:34276501','bestil_kopi'=> 'PAY')));
     // test that description field for electronic copy is present
     $this->assertText('sbkopi_printed_copy_description', 'descriptionfield for printed copy found on page');
@@ -67,6 +67,7 @@ class BibdkSbCopyUnitTestCase extends DrupalUnitTestCase {
 
   // test bibdk_reservation_sbkopi_validate
   public function testValidate() {
+
     // test an empty form state
     $form_state = $this->getFormState();
 
@@ -110,7 +111,7 @@ class BibdkSbCopyUnitTestCase extends DrupalUnitTestCase {
     $result = bibdk_reservation_sbkopi_validate(array(), $form_state);
     $this->assertTrue(is_array($result), 'errors found for old user who filled out cpr and pincode with invalid values');
 
-    // verify that new userfields does not validate with nor valid values 
+    // verify that new userfields does not validate with nor valid values
     $form_state = $this->getFormState();
     $new = $this->getNewArray();
     // both fields should be numeric (and pincode should be 4 digits)
@@ -137,10 +138,12 @@ class BibdkSbCopyUnitTestCase extends DrupalUnitTestCase {
   }
 
   private function getNewArray() {
+    module_load_include('inc', 'bibdk_reservation', 'bibdk_reservation_sb_kopi');
     return bibdk_reservation_sb_kopi_new_user_fields();
   }
 
   private function getOldArray() {
+    module_load_include('inc', 'bibdk_reservation', 'bibdk_reservation_sb_kopi');
     return bibdk_reservation_sb_kopi_old_user_fields();
   }
 
