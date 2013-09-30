@@ -7,16 +7,15 @@
         if( data.link != 'error') {
             var tag = $('.bibdk-sb_kopi-replaceme[pid=' + data.pid + ']');
             tag.attr('href',data.link.href);
-            tag.html(data.link.text);            
+            tag.html(data.link.text);
         }
     },
-    
+
     Drupal.bibdkKopiOptions =  function(element,context) {
         var pid = $(element).attr('pid');
         // save context in global var to reload later
         Drupal.settings.sbkopi = context;
-        console.log(Drupal.settings);
-        // Call ajax 
+        // Call ajax
         $.ajax({
             url:Drupal.settings.basePath + Drupal.settings.pathPrefix + 'sbkopi/ajax',
             type:'POST',
@@ -25,10 +24,10 @@
             },
             dataType:'json',
             success:Drupal.addCopyLink
-        }); 
-    }   
-    
-    
+        });
+    }
+
+
     /** Get copy options via ajax */
     Drupal.behaviors.sbKopi = {
         attach:function (context) {
@@ -36,7 +35,7 @@
                 Drupal.bibdkKopiOptions(element,context);
             });
         },
-        
+
         detach:function (context) {}
     };
 
