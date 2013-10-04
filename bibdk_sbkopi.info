@@ -1,7 +1,7 @@
 name = Bibliotek.dk sb_kopi service
 description = ability to order from sb_kopi service
 core = 7.x
-version = 7.x-0.5
+version = 7.x-0.6
 package = Bibliotek.dk
 
 files[] = bibdk_sbkopi.ajax.inc
