@@ -51,7 +51,8 @@ function bibdk_sbkopi_ting_openformat_actions($type, $entity, $view_mode, $langc
         '#markup' => '<a class="bibdk-sb_kopi-replaceme bibdk-popup-link" data-rel="reservation"" pid="' . $entity->id . '"></a>',
         '#weight' => 0.1,
         '#attached' => array('js' => array(drupal_get_path('module', 'bibdk_sbkopi') . '/js/ajaxGetCopyOptions.js')),
-      );
+     );
+
       return $actions;
     }
   }
