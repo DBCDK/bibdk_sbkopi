@@ -33,7 +33,7 @@ class BibdkSbCopyUnitTestCase extends DrupalUnitTestCase {
     return array(
       'name' => 'bibliotek.dk - sbkopi unit test',
       'description' => 'Unit Test methods in bibdk_sbkopi',
-      'group' => 'Bibliotek.dk-sbkopi',
+      'group' => 'Bibliotek.dk - SB Kopi',
     );
   }
 
