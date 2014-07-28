@@ -21,31 +21,9 @@ class bibdkSbCopyWebTestCase extends DrupalWebTestCase {
     return array(
       'name' => 'bibliotek.dk - webtest case',
       'description' => t('Test that sb_kopi form is show correctly'),
-      'group' => 'Bibliotek.dk-sbkopi',
+      'group' => 'Bibliotek.dk - SB Kopi',
     );
   }
-
-  public function testHest(){
-    $this->assertTrue(TRUE,'TRUE is TRUE');
-  }
-
- /* public function testSbCopyElements(){
-    variable_set('agency_search_url','http://openagency.addi.dk/2.5/');
-    variable_set('bibdk_openorder_url' , 'http://openorder.addi.dk/2.4/');
-    $this->drupalGet('reservation', array('query'=> array('ids'=>'870971-tsart:34276501','bestil_kopi'=> 'FREE')));
-
-    // test that description field for electronic copy is present
-    $this->assertText('sbkopi_electronic_copy_description', 'descriptionfield for electronic copy found on page');
-
-    $this->drupalGet('reservation', array('query'=> array('ids'=>'870971-tsart:34276501','bestil_kopi'=> 'PAY')));
-    // test that description field for electronic copy is present
-    $this->assertText('sbkopi_printed_copy_description', 'descriptionfield for printed copy found on page');
-    // test that selfpickup checkbox is present
-    $this->assertField('self_pickup', 'pickup checkbox found on page');
-    // assert that bestil_kopi_e_mail is present (user is not logged in)
-    $this->assertField('bestil_kopi_e_mail', 'email input field found');
-    $this->assertTrue(TRUE,'TRUE is TRUE');
-  }*/
 }
 
 
@@ -55,7 +33,7 @@ class BibdkSbCopyUnitTestCase extends DrupalUnitTestCase {
     return array(
       'name' => 'bibliotek.dk - sbkopi unit test',
       'description' => 'Unit Test methods in bibdk_sbkopi',
-      'group' => 'Bibliotek.dk-sbkopi',
+      'group' => 'Bibliotek.dk - SB Kopi',
     );
   }
 
@@ -138,12 +116,12 @@ class BibdkSbCopyUnitTestCase extends DrupalUnitTestCase {
   }
 
   private function getNewArray() {
-    module_load_include('inc', 'bibdk_reservation', 'bibdk_reservation_sb_kopi');
+    module_load_include('inc', 'bibdk_reservation', 'includes/bibdk_reservation_sb_kopi');
     return bibdk_reservation_sb_kopi_new_user_fields();
   }
 
   private function getOldArray() {
-    module_load_include('inc', 'bibdk_reservation', 'bibdk_reservation_sb_kopi');
+    module_load_include('inc', 'bibdk_reservation', 'includes/bibdk_reservation_sb_kopi');
     return bibdk_reservation_sb_kopi_old_user_fields();
   }
 
@@ -158,5 +136,3 @@ class BibdkSbCopyUnitTestCase extends DrupalUnitTestCase {
     return $form_state;
   }
 }
-
-?>
