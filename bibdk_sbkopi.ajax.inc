@@ -3,8 +3,11 @@
 function bibdk_sbkopi_ajax_get_options() {
   $result = bibdk_sbkopi_ajax_openorder_request($_REQUEST['pid']);
   $data['pid'] = $_REQUEST['pid'];
+  if ($result != 'error') {
+    $result['#options']['attributes']['class'] = array('bibdk-popup-link');
+    $result = drupal_render($result);
+  }
   $data['link'] = $result;
-
   drupal_json_output($data);
 }
 
@@ -21,12 +24,12 @@ function bibdk_sbkopi_ajax_parse_response($xml, $pid) {
   // get articleDeliveryPossible
   $query = '//ns:articleDeliveryPossible';
   $nodelist = $xpath->query($query);
-  $possible = $nodelist->item(0)->nodeValue;
+  $possible = isset($nodelist->item(0)->nodeValue) ? $nodelist->item(0)->nodeValue : null;
 
 // get articleDirect
   $query = '//ns:articleDirect';
   $nodelist = $xpath->query($query);
-  $deliver = $nodelist->item(0)->nodeValue;
+  $deliver = isset($nodelist->item(0)->nodeValue) ? $nodelist->item(0)->nodeValue : null;
 
   if ($possible) {
     $result = _bibdk_sbkopi_make_link($deliver, $pid);
@@ -52,8 +55,18 @@ function _bibdk_sbkopi_make_link($method, $pid) {
 }
 
 function _bibdk_sb_kopi_get_link($pid, $label, $type) {
-  $ref = url('reservation', array('query' => array('ids'=>$pid,'bestil_kopi'=>$type)));
-  return array('href' => $ref, 'text' => $label);
+  //$ref = url('reservation', array('query' => array('ids'=>$pid,'bestil_kopi'=>$type)));
+  //return array('href' => $ref, 'text' => $label);
+  return array(
+    '#theme' => 'link',
+    '#text' => $label,
+    '#path' => 'reservation',
+    '#options' => array(
+      'attributes' => array(),
+      'html' => true,
+      'query' => array('ids'=>$pid,'bestil_kopi'=>$type)
+    ),
+  );
 }
 
 function _bibdk_sbkopi_set_xpath($xml) {

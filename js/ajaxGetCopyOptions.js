@@ -6,8 +6,8 @@
     Drupal.addCopyLink = function (data) {
         if( data.link != 'error') {
             var tag = $('.bibdk-sb_kopi-replaceme[pid=' + data.pid + ']');
-            tag.attr('href',data.link.href);
-            tag.html(data.link.text);
+            tag.replaceWith(data.link);
+            Drupal.attachBehaviors(tag);
         }
     },
 
@@ -40,4 +40,3 @@
     };
 
 })(jQuery);
-
